@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+      type="image/x-icon"
+    />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboard.css') }}"
+    />
+    <style>
+      /* Spinner Styles */
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #007bff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+        display: none; /* Hidden by default */
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Image -->
+    <!-- <div class="background-image">
+      <img
+        src="{{ url_for('static', filename='images/SRKR.jpg') }}"
+        alt="Background"
+      />
+    </div> -->
+
+    <!-- Header Section -->
+    <div class="header">
+      <span>Welcome, {{ name }}</span>
+      <div class="logo-div">
+        <img
+          src="{{ url_for('static', filename='images/Logo.png') }}"
+          alt="SRKR Logo"
+          class="logo"
+        />
+        <h1>SRKR Group Attendance Portal</h1>
+      </div>
+
+      <a href="{{ url_for('logout') }}">Logout</a>
+      <p class="moving-text">
+        Teachers are requested to post attendance regularly
+      </p>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="controls">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" />
+
+      <label for="class">Class:</label>
+      <select id="class" name="class">
+        <option value="--Select A Class--">--Select A Class--</option>
+        <option value="4-2 AIDS">4-2 AIDS</option>
+        <option value="4-1 AIDS">4-1 AIDS</option>
+        <option value="3-2 AIDS">3-2 AIDS</option>
+        <option value="3-1 AIDS">3-1 AIDS</option>
+      </select>
+
+      <label for="subject">Subject:</label>
+      <select id="subject" name="subject">
+        <option value="--Select A Subject--">--Select A Subject--</option>
+        <option value="CN">CN</option>
+        <option value="OS">OS</option>
+        <option value="DBMS">DBMS</option>
+        <option value="ML">ML</option>
+        <option value="FDS">FDS</option>
+      </select>
+
+      <label for="teacher">Teacher:</label>
+      <select id="teacher" name="teacher">
+        <option value="--Select A Teacher">--Select A Teacher--</option>
+        <option value="Ravi Kiran Varma">Ravi Kiran Varma</option>
+        <option value="Laxmipathi Raju">Laxmipathi Raju</option>
+        <option value="Lakshmi Narayana">Lakshmi Narayana</option>
+        <option value="Neethika">Neethika</option>
+        <option value="Saibaba">Saibaba</option>
+      </select>
+
+      <button onclick="reset()" title="Reset">Reset</button>
+      <button onclick="resetAll()" title="Reset All">Reset All</button>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+      <div class="upload-box" id="upload-box">
+        <input type="file" id="file" name="file" />
+        <button onclick="uploadFile()">Upload</button>
+      </div>
+      <div class="spinner" id="spinner"></div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results" id="results-section">
+      <h2>Output Image</h2>
+      <img id="processed-image" src="" alt="Processed Image" />
+      <h2>Presentees</h2>
+      <ul id="names-list"></ul>
+      <h2>Total Presentees</h2>
+      <p id="count"></p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>Copyright © 2025 - Allu Venkata Sriram and Team</p>
+    </footer>
+
+    <script>
+      function uploadFile() {
+        const fileInput = document.getElementById("file");
+        const file = fileInput.files[0];
+        if (!file) {
+          alert("Please select a file.");
+          return;
+        }
+
+        // Hide the upload box and show the spinner
+        document.getElementById("upload-box").style.display = "none";
+        document.getElementById("spinner").style.display = "block";
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("date", document.getElementById("date").value);
+        formData.append("class", document.getElementById("class").value);
+        formData.append("subject", document.getElementById("subject").value);
+        formData.append("teacher", document.getElementById("teacher").value);
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Hide the spinner
+            document.getElementById("spinner").style.display = "none";
+
+            if (data.success) {
+              alert("File uploaded successfully!");
+              // Show the results section
+              document.getElementById("results-section").style.display =
+                "block";
+
+              // Update the UI with the processed image, names, and count
+              document.getElementById("processed-image").src =
+                data.processed_image;
+              const namesList = document.getElementById("names-list");
+              namesList.innerHTML = data.names
+                .map((name) => `<li>${name}</li>`)
+                .join("");
+              document.getElementById("count").innerText = data.count;
+
+              // Show the upload box again after successful upload
+              document.getElementById("upload-box").style.display = "flex";
+            } else {
+              alert("File upload failed: " + data.error);
+              // Show the upload box again if upload fails
+              document.getElementById("upload-box").style.display = "flex";
+            }
+          })
+          .catch((error) => {
+            // Hide the spinner
+            document.getElementById("spinner").style.display = "none";
+
+            console.error("Error:", error);
+            alert("An error occurred while uploading the file.");
+            // Show the upload box again if an error occurs
+            document.getElementById("upload-box").style.display = "flex";
+          });
+      }
+
+      function reset() {
+        const date = document.getElementById("date").value;
+        const class_name = document.getElementById("class").value;
+        const subject = document.getElementById("subject").value;
+        const teacher = document.getElementById("teacher").value;
+
+        fetch("/reset", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ date, class: class_name, subject, teacher }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Reset successful!");
+            } else {
+              alert("Reset failed.");
+            }
+          });
+      }
+
+      function resetAll() {
+        fetch("/resetall", {
+          method: "POST",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Reset All successful!");
+            } else {
+              alert("Reset All failed.");
+            }
+          });
+      }
+    </script>
+  </body>
+</html>

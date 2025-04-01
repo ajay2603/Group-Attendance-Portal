@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+psycopg2-binary
+opencv-python-headless
+python-dotenv
+cloudinary
+werkzeug
+gunicorn
+numpy

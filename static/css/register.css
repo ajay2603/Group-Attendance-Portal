@@ -1,0 +1,153 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.register-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative; /* Required for the divider */
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.form-box {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2),
+    /* Subtle black glow */ 0 0 20px rgba(136, 33, 26, 0.3),
+    /* Medium maroon glow */ 0 0 40px rgba(235, 105, 29, 0.4),
+    /* Strong orange glow */ 0 0 60px rgba(73, 86, 120, 0.2); /* Subtle blue glow */
+  animation: glow-animation 3s infinite alternate;
+}
+
+@keyframes glow-animation {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 20px rgba(136, 33, 26, 0.3),
+      0 0 40px rgba(235, 105, 29, 0.4), 0 0 60px rgba(73, 86, 120, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 0 30px rgba(136, 33, 26, 0.3),
+      0 0 50px rgba(235, 105, 29, 0.4), 0 0 70px rgba(73, 86, 120, 0.2);
+  }
+}
+
+.form-box h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 90%;
+  margin-top: 5px;
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+.input-group input:hover {
+  border-color: #eb691d;
+  box-shadow: 0 0 10px #eb691d;
+}
+
+.input-group input:focus {
+  border-color: #88211a;
+  box-shadow: 0 0 10px #88211a;
+}
+
+button {
+  width: 98%;
+  padding: 10px;
+  background-color: #eb691d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #d45a16; /* Slightly darker shade on hover */
+}
+
+a {
+  margin-top: 15px;
+  color: #d45a16;
+  text-decoration: none;
+  display: block;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #88211a; /* Dark maroon background */
+  overflow: hidden;
+  position: relative; /* Required for the divider */
+}
+
+.image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire section */
+}
+
+/* Vertical line divider */
+.register-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%; /* Position the divider in the middle */
+  width: 2px; /* Thickness of the divider */
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1), /* Transparent at the top */
+    rgba(0, 0, 0, 0.5), /* Darker in the middle */
+    rgba(0, 0, 0, 0.1) /* Transparent at the bottom */
+  );
+  z-index: 1; /* Ensure the divider is above the image */
+}
+
+
+

@@ -1,0 +1,165 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.welcome-text {
+  text-align: center;
+  margin-top: 60px; /* Move welcome text 20px down from the top */
+}
+
+.welcome-text h1 {
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+}
+
+.login-container {
+  display: flex;
+  width: 90%; /* Adjusted to fit within the screen */
+  max-width: 1200px; /* Maximum width for larger screens */
+  height: 80vh; /* Adjusted height to fit content */
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* Align welcome text to the top */
+  align-items: center;
+  background: #88211a;
+  position: relative; /* Required for absolute positioning of logo */
+}
+
+.logo-wrapper {
+  text-align: center;
+  padding: 20px; /* Added padding for better spacing */
+  position: absolute; /* Position logo absolutely within logo-section */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Perfectly center the logo */
+
+}
+
+.logo-section img {
+  width: 200px;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.estd-text {
+  font-size: 18px;
+  color: #fff;
+  margin-top: 35px;
+  font-weight: bold;
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.form-box {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2),
+    /* Subtle black glow */ 0 0 20px rgba(136, 33, 26, 0.3),
+    /* Medium maroon glow */ 0 0 40px rgba(235, 105, 29, 0.4),
+    /* Strong orange glow */ 0 0 60px rgba(73, 86, 120, 0.2); /* Subtle blue glow */
+  animation: glow-animation 3s infinite alternate;
+}
+
+@keyframes glow-animation {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 20px rgba(136, 33, 26, 0.3),
+      0 0 40px rgba(235, 105, 29, 0.4), 0 0 60px rgba(73, 86, 120, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 0 30px rgba(136, 33, 26, 0.3),
+      0 0 50px rgba(235, 105, 29, 0.4), 0 0 70px rgba(73, 86, 120, 0.2);
+  }
+}
+
+.form-box h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 90%;
+  margin-top: 5px;
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+.input-group input:hover {
+  border-color: #eb691d;
+  box-shadow: 0 0 10px #eb691d;
+}
+
+.input-group input:focus {
+  border-color: #88211a;
+  box-shadow: 0 0 10px #88211a;
+}
+
+button {
+  width: 98%;
+  padding: 10px;
+  background-color: #eb691d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #d45a16; /* Slightly darker shade on hover */
+}
+
+a {
+  margin-top: 15px;
+  color: #d45a16;
+  text-decoration: none;
+  display: block;
+}
+
+a:hover {
+  text-decoration: underline;
+}
