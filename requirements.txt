@@ -8,3 +8,5 @@ cloudinary
 werkzeug
 gunicorn
 numpy
+dlib
+face_recognition
