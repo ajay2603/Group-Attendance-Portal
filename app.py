@@ -7,7 +7,7 @@ import cloudinary
 import cloudinary.uploader
 import cv2
 from dotenv import load_dotenv
-from .main import upload_and_recognize  # Import the function from main.py
+from main import upload_and_recognize  # Import the function from main.py
 
 # Initialize Flask app
 app = Flask(__name__)
